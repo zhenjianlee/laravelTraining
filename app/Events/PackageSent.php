@@ -12,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 
-class PackageSent implements ShouldBroadCast, ShouldQueue
+class PackageSent implements ShouldBroadCast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -20,14 +20,12 @@ class PackageSent implements ShouldBroadCast, ShouldQueue
      * Create a new event instance.
      */
 
-    public $status;
-    public $deliveryHandler;
 
-    public function __construct(string $status,string $deliveryHandler)
+
+    public function __construct(public string $status, public string $deliveryHandler)
     {
         //
-        $this->status = $status;
-        $this->deliveryHandler = $deliveryHandler;
+
         
     }
 
@@ -36,12 +34,12 @@ class PackageSent implements ShouldBroadCast, ShouldQueue
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
-    public function broadcastOn():Channel
+    public function broadcastOn():array
     {
-        // return [
-        //     new PrivateChannel('channel-name'),
-        // ];
+        return [
+            new PrivateChannel('channel-name'),
+            new Channel('delivery'),
+        ];
 
-        return new Channel('delivery');
     }
 }

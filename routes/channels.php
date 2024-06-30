@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('delivery', function ($user, $id) {
+Broadcast::channel('delivery', function () {
     // return (int) $user->id === (int) $id;
     return true;
 });
